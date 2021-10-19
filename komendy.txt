@@ -1,0 +1,19 @@
+#include <windows.h>
+Sleep(czas w milisekundach) - zatrzymuje
+Beep(częstotliwość dźwięku w Hz, długość dźwięku w milisekundach) - wydaje dzwięki
+
+#include <cstdlib)
+system("cls") - czyści poprzednie zapisy
+exit(0) - kończy program
+rand()%x+1 - losuje nam liczbe od 1 do x+1
+
+#include <time.h>
+srand(time(NULL)) - zaczyna generować liczbe losowe
+
+#include <conio.h>
+
+#include <fstream>
+fstream plik;
+plik.open("nazwa_pliku",ios::out); - tworzy plik i go otwiera a jesli jest juz stworzony to go otwiera
+plik << nazwa_danych; - wysyła rzecz do pliku
+plik.close(); - zamyka plik
