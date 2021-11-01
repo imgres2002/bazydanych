@@ -1,0 +1,24 @@
+pwd - wyświelta w jakim katalogu się aktualnie znajdujemy
+ls - wyświetla zawartoś danego katalogu
+cd (nazwa katalogu)/ - przenosi nas do danego katalogu
+mkdir (nazwa katalogu) - tworzy nowy katalog
+touch (nazwa_pliku.rozszerzenie) - rworzy nowy plik
+rm (nazwa_pliku.rozszerzenie) - usuwa dany plik
+cd .. - cofa nas do poprzedniego katalogu
+rm -r (nazwa_katalogu) - usuwa dany katalog
+clear - czyści konsole
+
+git status - wyświetla stan repozytorium
+git log - historia commit'ów
+przyciskiem 'q' wychodzimy z menu
+git branch - wyświetla listę branch'y które mamy w lokalnym repozytorium oraz wyświetla na którym się znajdujemy
+
+git add - wybieramy plik które chcemy przenieść z WORKING DIRECOTORY(nasz komputer) do STAGING AREA(poczekalnia)
+git add --all - dodaje wszystkie pliki
+
+
+git commit - wybieramy pliki które chcemy przenieść z STAGING AREA(poczekalnia) do lokalnego repozytorium
+git commit -m - wysyła pliki wraz z wiadomością
+git commit -am - łączy komende gitt add z git commit -m (UWAGA nie przenosi nowo utworzonych plików tylko te które już były)
+
+git push - wysyła plik z lokalnego repozy
