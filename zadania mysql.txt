@@ -1,0 +1,21 @@
+CREATE TABLE pracownik(id_pracownika INT PRIMARY KEY,
+    -> imie VARCHAR(40) NOT NULL,
+    -> nazwisko VARCHAR(50) NOT NULL,
+    -> zarobki DOUBLE(10,2) DEFAULT 4000,
+    -> data_urodzenia DATE NOT NULL,
+    -> stanowisko ENUM('manager','kierownik','sprzedawca','kasjer'));
+
+INSERT INTO pracownik VALUES(1, 'Jan','Kowalski',3000, '1999-01-01', 'kasjer');
+
+CREATE TABLE projekt(id_projektu INT PRIMARY KEY, nazwa VARCHAR(40), id_pracownika INT, FOREIGN KEY (id_pracownika) REFERENCES pracownik(id_pracownika));
+
+DESC postac;
+SELECT wiek FROM postac;
+SELECT nazwa FROM postac;
+
+CREATE TABLE postac(id_postaci INT PRIMARY KEY, nazwa VARCHAR(40) NOT NULL, rodzaj ENUM('wiking','ptak','kobieta'), data_ur DATE NOT NULL, wiek INT UNSIGNED);
+
+CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc INT UNSIGNED, kolor ENUM('rozowy','czerwony','teczowy','zolty'), id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
+
+zadanie 2
+CREATE TABLE przetwory(id_przetworu INT PRIMARY KEY,rok_produkcji DATE,id wykonawcy
