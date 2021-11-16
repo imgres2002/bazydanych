@@ -14,12 +14,12 @@ CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc INT UN
 
 INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,2,1);
 
-
 INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,4,3);
 
-CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,nazwa_izby VARCHAR(40),metraz INT UNSIGNED,wlasciciel INT,FOREIGN KEY (wlasciciela) REFERENCES postac(id_postaci) NOT NULL);
+CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,nazwa_izby VARCHAR(40),metraz INT UNSIGNED,wlasciciel INT,FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci));
 
-ALTER TABLE izba ADD kolor VARCHAR(40) DEFAULT 'czarny',AFTER metraz;
+
+ALTER TABLE izba ADD COLUMN kolor VARCHAR(40) DEFAULT 'czarny' AFTER metraz;
 
 INSERT INTO izba(nazwa_izby,metraz,wlasciciel) VALUES (spizarnia,10,Bjorn);
 

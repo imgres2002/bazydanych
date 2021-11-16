@@ -8,6 +8,8 @@ Logowanie do MySQL
 mysql -u bieniaszewskis -p
 Hasło: szymon123#@!A
 
+use bieniaszewskis
+
 Podstawowe komendy MySQL
 ALTER USER drozdap IDENTIFIED BY ‘noweTrudneHaslo’;
 SHOW DATABASES; - wszystkie dostępne bazy dla użytkownika
