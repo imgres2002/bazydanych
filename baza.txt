@@ -12,4 +12,40 @@ UPDATE postac SET wiek=88 WHERE nazwa='Tescowa';
 
 CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc INT UNSIGNED, kolor ENUM('rozowy','czerwony','teczowy','zolty') DEFAULT 'rozowy', id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
 
-INSERT INTO walizka (kolor,id_wlasciciela) VALUES (10,2,1);
+INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,2,1);
+
+
+INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,4,3);
+
+CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,nazwa_izby VARCHAR(40),metraz INT UNSIGNED,wlasciciel INT,FOREIGN KEY (wlasciciela) REFERENCES postac(id_postaci) NOT NULL);
+
+ALTER TABLE izba ADD kolor VARCHAR(40) DEFAULT 'czarny',AFTER metraz;
+
+INSERT INTO izba(nazwa_izby,metraz,wlasciciel) VALUES (spizarnia,10,Bjorn);
+
+CREATE TABLE przetwory(id_przetworu INT AUTO_INCREMENT PRIMARY KEY,rok_produkcji DATE DEFAULT '1654',id_wykonawcy INT,FOREIGN KEY (id_wykonawcy) REFERENCES postac(id_postaci) NOT NULL,zawartosc VARCHAR(40),dodatek VARCHAR(40) DEFAULT 'papryczka_chilli',id_konsumenta FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
+
+INSERT INTO przetwory(id_wykonawcy,zawartosc,id_konsumenta) VALUES (1,'bigos',3);
+
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (4,'1991-10-10',31,'wiking_1');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (5,'1992-10-10',31,'wiking_2');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (6,'1993-10-10',31,'wiking_3');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (7,'1994-10-10',31,'wiking_4');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (8,'1995-10-10',31,'wiking_5');
+
+CREATE TABLE statek(nazwa_statku INT AUTO_INCREMENT PRIMARY KEY,rodzaj_statku ENUM('snek',' skeid','drakar'),data_wodowania DATE,max_ladownosc INT UNSIGNED);
+
+INSERT INTO statek(rodzaj_statku,data_wodowania,max_ladownosc) VALUES (1,'1991-10-10',100);
+INSERT INTO statek(rodzaj_statku,data_wodowania,max_ladownosc) VALUES (2,'1992-10-10',150);
+
+ALTER TABLE postac ADD funkcja VARCHAR(40);
+
+UPDATE postac SET funkcja='kapittan' WHERE nazwa='Bjorn';
+
+6?
+
+7?
+
+DELETE FROM izba WHERE nazwa_izby='spizarnia';
+
+DROP TABLE izba;

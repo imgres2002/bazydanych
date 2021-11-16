@@ -13,7 +13,7 @@ git status - wyświetla stan lokalnego repozytorium
 git log - historia commit'ów
 przyciskiem 'q' wychodzimy z menu
 git branch - wyświetla listę branch'y które mamy w lokalnym repozytorium oraz wyświetla na którym się znajdujemy
-
+git clone (link do repozytorium) - kupiuje repozytorium na konkuter
 git add - wybieramy plik które chcemy przenieść z WORKING DIRECOTORY(nasz komputer) do STAGING AREA(poczekalnia)
 git add --all - dodaje wszystkie pliki
 
