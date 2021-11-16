@@ -10,28 +10,43 @@ UPDATE postac SET data_ur='1933-10-10' WHERE nazwa='Tescowa';
 
 UPDATE postac SET wiek=88 WHERE nazwa='Tescowa';
 
-CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc INT UNSIGNED, kolor ENUM('rozowy','czerwony','teczowy','zolty') DEFAULT 'rozowy', id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
+CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT,
+pojemnosc INT UNSIGNED,
+kolor ENUM('rozowy','czerwony','teczowy','zolty') DEFAULT 'rozowy',
+id_wlasciciela INT,
+FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
 
 INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,2,1);
 
 INSERT INTO walizka (pojemnosc,kolor,id_wlasciciela) VALUES (10,4,3);
 
-CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,nazwa_izby VARCHAR(40),metraz INT UNSIGNED,wlasciciel INT,FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci));
+CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,
+nazwa_izby VARCHAR(40),
+metraz INT UNSIGNED,
+wlasciciel INT,
+wlasciciel INT,
+FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci));
 
+ALTER TABLE izba ADD kolor VARCHAR(40) DEFAULT 'czarny' AFTER metraz;
 
-ALTER TABLE izba ADD COLUMN kolor VARCHAR(40) DEFAULT 'czarny' AFTER metraz;
+INSERT INTO izba(nazwa_izby,metraz,wlasciciel) VALUES ('spizarnia',10,1);
 
-INSERT INTO izba(nazwa_izby,metraz,wlasciciel) VALUES (spizarnia,10,Bjorn);
-
-CREATE TABLE przetwory(id_przetworu INT AUTO_INCREMENT PRIMARY KEY,rok_produkcji DATE DEFAULT '1654',id_wykonawcy INT,FOREIGN KEY (id_wykonawcy) REFERENCES postac(id_postaci) NOT NULL,zawartosc VARCHAR(40),dodatek VARCHAR(40) DEFAULT 'papryczka_chilli',id_konsumenta FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
+CREATE TABLE przetwory(id_przetworu INT AUTO_INCREMENT PRIMARY KEY,
+rok_produkcji DATE DEFAULT '1654-10-10',
+id_wykonawcy INT,
+FOREIGN KEY (id_wykonawcy) REFERENCES postac(id_postaci),
+zawartosc VARCHAR(40),
+dodatek VARCHAR(40) DEFAULT 'papryczka_chilli',
+id_konsumenta INT,
+FOREIGN KEY (id_konsumenta) REFERENCES postac(id_postaci));
 
 INSERT INTO przetwory(id_wykonawcy,zawartosc,id_konsumenta) VALUES (1,'bigos',3);
 
-INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (4,'1991-10-10',31,'wiking_1');
-INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (5,'1992-10-10',31,'wiking_2');
-INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (6,'1993-10-10',31,'wiking_3');
-INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (7,'1994-10-10',31,'wiking_4');
-INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (8,'1995-10-10',31,'wiking_5');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1991-10-10',31,'wiking_1');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1992-10-10',31,'wiking_2');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1993-10-10',31,'wiking_3');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1994-10-10',31,'wiking_4');
+INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1995-10-10',31,'wiking_5');
 
 CREATE TABLE statek(nazwa_statku INT AUTO_INCREMENT PRIMARY KEY,rodzaj_statku ENUM('snek',' skeid','drakar'),data_wodowania DATE,max_ladownosc INT UNSIGNED);
 
@@ -40,11 +55,20 @@ INSERT INTO statek(rodzaj_statku,data_wodowania,max_ladownosc) VALUES (2,'1992-1
 
 ALTER TABLE postac ADD funkcja VARCHAR(40);
 
-UPDATE postac SET funkcja='kapittan' WHERE nazwa='Bjorn';
+UPDATE postac SET funkcja='kapitan' WHERE nazwa='Bjorn';
 
-6?
 
-7?
+
+ALTER TABLE postac ADD jaki_statek INT;
+ALTER TABLE postac ADD FOREIGN KEY (jaki_statek) REFERENCES statek(nazwa_statku);
+
+UPDATE postac SET jaki_statek=1 WHERE nazwa='Bjorn';
+UPDATE postac SET jaki_statek=1 WHERE nazwa='Drozd';
+UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_1';
+UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_2';
+UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_3';
+UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_4';
+UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_5';
 
 DELETE FROM izba WHERE nazwa_izby='spizarnia';
 
