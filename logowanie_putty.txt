@@ -1,0 +1,18 @@
+Logowanie na serwer
+Serwer Linux 
+Adres: 213.184.8.36
+Login: bieniaszewskis
+Hasło: szymon
+
+Logowanie do MySQL
+mysql -u bieniaszewskis -p
+Hasło: szymon123#@!A
+
+Podstawowe komendy MySQL
+ALTER USER drozdap IDENTIFIED BY ‘noweTrudneHaslo’;
+SHOW DATABASES; - wszystkie dostępne bazy dla użytkownika
+use drozdap - wejscie do bazy
+SHOW TABLES; - pokazuje wszystkie tabele
+DESC nazwa_tabeli; - pokazuje jak stworzona tabela
+
+
