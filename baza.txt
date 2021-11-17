@@ -1,4 +1,8 @@
-CREATE TABLE postac(id_postaci INT AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(40), rodzaj ENUM('wiking','ptak','kobieta'), data_ur DATE, wiek INT UNSIGNED);
+CREATE TABLE postac(id_postaci INT AUTO_INCREMENT PRIMARY KEY,
+nazwa VARCHAR(40),
+rodzaj ENUM('wiking','ptak','kobieta'),
+data_ur DATE,
+wiek INT UNSIGNED);
 
 INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1990-10-10',31,'Bjorn');
 
@@ -73,3 +77,45 @@ UPDATE postac SET jaki_statek=2 WHERE nazwa='wiking_5';
 DELETE FROM izba WHERE nazwa_izby='spizarnia';
 
 DROP TABLE izba;
+
+DELETE FROM postac WHERE nazwa='wiking_5';
+
+DELETE FROM postac WHERE nazwa='wiking_4';
+
+SHOW CREATE TABLE walizka;
+ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ALTER TABLE przwtwory DROP FOREIGN KEY przetwory_ibfk_2;
+ALTER TABLE przwtwory DROP FOREIGN KEY przetwory_ibfk_1;
+ALTER TABLE postac DROP COLUMN id_postaci;
+
+ALTER TABLE postac ADD COLUMN pesel VARCHAR();
+UPDATE postac SET pesel=1234567890 WHERE nazwa='Bjorn';
+UPDATE postac SET pesel=1234567891 WHERE nazwa='Drozd';
+UPDATE postac SET pesel=1234567892 WHERE nazwa='Tesciowa';
+UPDATE postac SET pesel=1234567893 WHERE nazwa='wiking_1';
+UPDATE postac SET pesel=1234567894 WHERE nazwa='wiking_2';
+UPDATE postac SET pesel=1234567895 WHERE nazwa='wiking_3';
+ALTER TABLE postac ADD PRIMARY KEY (pesel)
+
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking','ptak','kobieta','syrena');
+
+INSERT INTO postac (nazwa,rodzaj,data_ur,wiek,pesel) VALUES ('Gertruda_Nieszczera',4,'1500-11-11',521,1234567896);
+
+UPDATE postac SET jaki_statek=1 WHERE nazwa='Gertruda_Nieszczera';
+UPDATE postac SET jaki_statek=1 WHERE nazwa='Tesciowa';
+
+zad3?
+
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
+INSERT INTO postac(nazwa,rodzaj,data_ur,wiek,pesel) VALUES ('Loko',5,'2020-12-12',1,1234567897);
+
+CREATE TABLE marynarz(
+nazwa VARCHAR(40),
+
+rodzaj ENUM('wiking','ptak','kobieta','syrena','waz'),
+data_ur DATE,
+
+wiek INT UNSIGNED,
+funkcja VARCHAR(40),
+jaki_statek
+pesel INT PRIMARY KEY);
