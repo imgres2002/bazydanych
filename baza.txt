@@ -109,13 +109,35 @@ zad3?
 ALTER TABLE postac MODIFY rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
 INSERT INTO postac(nazwa,rodzaj,data_ur,wiek,pesel) VALUES ('Loko',5,'2020-12-12',1,1234567897);
 
-CREATE TABLE marynarz(
+create table marynarz like postac;
+show create table postac;
+
+ALTER TABLE marynarz ADD FOREIGN KEY (jaki_statek) REFERENCES statek(nazwa_statku);
+
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Bjorn','wiking','1990-10-10','31','kapitan',1,'1234567890');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Drozd','ptak','1990-10-10','11','null',1,'1234567891');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Tesciowa','kobieta','1933-10-10','88','null',1,'1234567892');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Wiking_1','wiking','1991-10-10','31','null',2,'1234567893');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Wiking_2','wiking','1992-10-10','30','null',2,'1234567894');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Wiking_3','wiking','1993-10-10','29','null',2,'1234567895');
+INSERT INTO marynarz(nazwa,rodzaj ,data_ur ,wiek ,funkcja,jaki_statek,pesel) VALUES ('Gertruda_Nieszczera','syrena','1500-11-11','521','null',1,'1234567896');
+
+UPDATE marynarz SET jaki_statek=null;
+
+DELETE FROM marynarz WHERE nazwa='Wiking_1';
+
+DELETE FROM statek WHERE nazwa_statku=1;
+DELETE FROM statek WHERE nazwa_statku=2;
+
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+ALTER TABLE marynarz DROP FOREIGN KEY marynarz_ibfk_1;
+drop table statek;
+
+CREATE TABLE zwierz (id INT AUTO_INCREMENT PRIMARY KEY,
 nazwa VARCHAR(40),
+wiek INT);
 
-rodzaj ENUM('wiking','ptak','kobieta','syrena','waz'),
-data_ur DATE,
+INSERT INTO zwierz(nazwa,wiek) VALUES ('Drozd',11);
+INSERT INTO zwierz(nazwa,wiek) VALUES ('Loko',1);
 
-wiek INT UNSIGNED,
-funkcja VARCHAR(40),
-jaki_statek
-pesel INT PRIMARY KEY);
+CREATE TABLE bieniaszewskis.kreatura LIKE wikingowie.kreatura;
