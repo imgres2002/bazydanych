@@ -141,3 +141,9 @@ INSERT INTO zwierz(nazwa,wiek) VALUES ('Drozd',11);
 INSERT INTO zwierz(nazwa,wiek) VALUES ('Loko',1);
 
 CREATE TABLE bieniaszewskis.kreatura LIKE wikingowie.kreatura;
+CREATE TABLE zasob LIKE wikingowie.zasob;
+CREATE TABLE ekwipunek LIKE wikingowie.ekwipunek;
+
+INSERT INTO kreatura SELECT * from wikingowie.kreatura;
+INSERT INTO zasob SELECT * from wikingowie.zasob;
+INSERT INTO ekwipunek SELECT * from wikingowie.ekwipunek;
