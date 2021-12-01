@@ -159,3 +159,8 @@ select COUNT(idZasobu),rodzaj FROM zasob WHERE ilosc>1 GROUP BY rodzaj;
 
 zad3
 SELECT idKreatury, SUM(ilosc) FROM ekwipunek GROUP BY idKreatury;
+SELECT COUNT(ekwipunek.ilosc), kreatura.nazwa FROM ekwipunek, kreatura WHERE kreatura.idKreatury=ekwipunek.idKreatury GROUP BY kreatura.nazwa ;
+ALBO
+SELECT k1.nazwa, z1.nazwa FROM kreatura AS k1 JOIN ekwipunek AS e1 ON k1.idKreatury=e1.idKreatury JOIN zasob AS z1 ON z1.idZasobu+e1.idZasobu
+
+SELECT k1.nazwa, COUNT(e1.ilosc) AS ilosc FROM kreatura AS k1 JOIN ekwipunek AS e1 ON k1.idKreatury=e1.idKreatury GROUP BY nazwa;
