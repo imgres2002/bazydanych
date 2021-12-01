@@ -147,3 +147,15 @@ CREATE TABLE ekwipunek LIKE wikingowie.ekwipunek;
 INSERT INTO kreatura SELECT * from wikingowie.kreatura;
 INSERT INTO zasob SELECT * from wikingowie.zasob;
 INSERT INTO ekwipunek SELECT * from wikingowie.ekwipunek;
+
+select AVG(waga) FROM kreatura WHERE rodzaj='wiking';
+select AVG(waga), COUNT(rodzaj) FROM kreatura GROUP BY rodzaj;
+select AVG(YEAR(dataUr)),rodzaj FROM  kreatura group BY rodzaj;
+
+select SUM(waga),rodzaj FROM zasob group BY rodzaj;
+select SUM(waga),nazwa FROM zasob WHERE ilosc >=4 GROUP BY nazwa;
+select SUM(waga),nazwa FROM zasob WHERE ilosc >=4 GROUP BY nazwa HAVING SUM(waga)>10;
+select COUNT(idZasobu),rodzaj FROM zasob WHERE ilosc>1 GROUP BY rodzaj;
+
+zad3
+SELECT idKreatury, SUM(ilosc) FROM ekwipunek GROUP BY idKreatury;
