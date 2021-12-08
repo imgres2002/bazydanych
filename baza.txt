@@ -164,3 +164,9 @@ ALBO
 SELECT k1.nazwa, z1.nazwa FROM kreatura AS k1 JOIN ekwipunek AS e1 ON k1.idKreatury=e1.idKreatury JOIN zasob AS z1 ON z1.idZasobu+e1.idZasobu
 
 SELECT k1.nazwa, COUNT(e1.ilosc) AS ilosc FROM kreatura AS k1 JOIN ekwipunek AS e1 ON k1.idKreatury=e1.idKreatury GROUP BY nazwa;
+
+ZAD 4
+1.
+SELECT kreatura.nazwa , zasob.nazwa FROM kreatura JOIN ekwipunek ON kreatura.idkreatury=ekwipunek.idkreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE year(dataUr)>1670 AND  year(dataUr)<1679
+2.
+SELECT kreatura.nazwa FROM kreatura JOIN ekwipunek ON kreatura.idkreatury=ekwipunek.idkreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE zasob.rodzaj="jedzenie";
