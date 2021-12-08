@@ -176,4 +176,13 @@ ZAD 5
 1.
 SELECT k.rodzaj, ROUND(AVG(z.waga*z.ilosc),2) AS srednia_waga, FROM kreatura AS k INNER JOIN ekwipunek AS e ON k.idKreatury=e.idKreatury INNER JOIN zasob AS z ON e.idZasobu=z.idZasobu WHERE k.rodzaj!='malpa' AND k.rodzaj!='waz' GROUP BY rodzaj HAVING COUNT(z.idzasobu)<30 ;
 
+karta 5
+ZAD 1
+1.
+DELETE FROM kreatura;
+INSERT INTO bieniaszewskis.kreatura (SELECT * FROM wikingowie.kreatura)
 
+CREATE TABLE bieniaszewskis.uczestnicy LIKE wikingowie.uczestnicy;
+CREATE TABLE bieniaszewskis.etapy_wyprawy LIKE wikingowie.etapy_wyprawy;
+CREATE TABLE bieniaszewskis.sektor LIKE wikingowie.sektor;
+CREATE TABLE bieniaszewskis.wyprawa LIKE wikingowie.wyprawa;
