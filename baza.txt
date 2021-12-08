@@ -169,4 +169,11 @@ ZAD 4
 1.
 SELECT kreatura.nazwa , zasob.nazwa FROM kreatura JOIN ekwipunek ON kreatura.idkreatury=ekwipunek.idkreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE year(dataUr)>1670 AND  year(dataUr)<1679
 2.
-SELECT kreatura.nazwa FROM kreatura JOIN ekwipunek ON kreatura.idkreatury=ekwipunek.idkreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE zasob.rodzaj="jedzenie";
+SELECT kreatura.nazwa FROM kreatura JOIN ekwipunek ON kreatura.idkreatury=ekwipunek.idkreatury JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE zasob.rodzaj="jedzenie" ORDER BY kreatura.nazwa DESC LIMIT 5;
+3.
+SELECT k1.nazwa,k2.nazwa FROM kreatura AS k1 ,kreatura AS k2 WHERE k1.idKreatury=k2.idKreatury+5;
+ZAD 5
+1.
+SELECT k.rodzaj, ROUND(AVG(z.waga*z.ilosc),2) AS srednia_waga, FROM kreatura AS k INNER JOIN ekwipunek AS e ON k.idKreatury=e.idKreatury INNER JOIN zasob AS z ON e.idZasobu=z.idZasobu WHERE k.rodzaj!='malpa' AND k.rodzaj!='waz' GROUP BY rodzaj HAVING COUNT(z.idzasobu)<30 ;
+
+
