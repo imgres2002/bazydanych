@@ -180,9 +180,58 @@ karta 5
 ZAD 1
 1.
 DELETE FROM kreatura;
-INSERT INTO bieniaszewskis.kreatura (SELECT * FROM wikingowie.kreatura)
 
 CREATE TABLE bieniaszewskis.uczestnicy LIKE wikingowie.uczestnicy;
 CREATE TABLE bieniaszewskis.etapy_wyprawy LIKE wikingowie.etapy_wyprawy;
 CREATE TABLE bieniaszewskis.sektor LIKE wikingowie.sektor;
 CREATE TABLE bieniaszewskis.wyprawa LIKE wikingowie.wyprawa;
+
+INSERT INTO bieniaszewskis.uczestnicy (SELECT * FROM wikingowie.uczestnicy);
+INSERT INTO bieniaszewskis.etapy_wyprawy (SELECT * FROM wikingowie.etapy_wyprawy);
+INSERT INTO bieniaszewskis.sektor (SELECT * FROM wikingowie.sektor);
+INSERT INTO bieniaszewskis.wyprawa (SELECT * FROM wikingowie.wyprawa)
+2.
+select kreatura.nazwa from kreatura LEFT OUTER JOIN uczestnicy ON uczestnicy.id_uczestnika=kreatura.idKreatury WHERE uczestnicy.id_uczestnika IS NULL;
+3.
+SELECT w.nazwa, count(e.ilosc) as ilosc_ekwipunku FROM wyprawa as w JOIN
+uczestnicy as u ON w.id_wyprawy=u.id_wyprawy JOIN kreatura as k ON k.idKreatury=u.id_uczestnika JOIN ekwipunek as e ON k.idKreatury=e.idKreatury GROUP BY w.nazwa;
+ZAD 2
+1.
+                    show tables;
+                    select * form kreatura;
+                    select * from etapy_wyprawy;
+                    select * from sektor;
+                    select * from wyprawa;
+                    select * from uczestnicy;
+SELECT wyprawa.nazwa,COUNT(uczestnicy.id_wyprawy) AS suma_uczestnikow ,GROUP_CONCAT(kreatura.nazwa) as uczestnicy FROM wyprawa JOIN uczestnicy ON  wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN kreatura ON kreatura.idkreatury=uczestnicy.id_uczestnika GROUP BY wyprawa.nazwa
+3.
+SELECT wyprawa.nazwa, etapy_wyprawy.kolejnosc, sektor.nazwa, kreatura.nazwa FROM wyprawa JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor JOIN uczestnicy ON uczestnicy.id_uczestnika=wyprawa.kierownik JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
+ZAD 3
+1.
+SELECT sektor.nazwa,COUNT(idWyprawy) AS ilosc_odwiedzin FROM etapy_wyprawy
+LEFT JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor 
+GROUP BY sektor 
+ORDER BY sektor;
+2.
+
+
+
+
+
+
+
+
+
+
+ZAD 4
+1.
+SELECT wyprawa.nazwa, length(etapy_wyprawy.dziennik) AS suma_liczby_znakow FROM wyprawa 
+JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy 
+JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor 
+JOIN uczestnicy ON uczestnicy.id_uczestnika=wyprawa.kierownik 
+JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika 
+GROUP BY wyprawa.nazwa
+HAVING SUM(length(etapy_wyprawy.dziennik));
+
+
+
