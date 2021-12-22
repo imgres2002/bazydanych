@@ -198,14 +198,20 @@ uczestnicy as u ON w.id_wyprawy=u.id_wyprawy JOIN kreatura as k ON k.idKreatury=
 ZAD 2
 1.
                     show tables;
-                    select * form kreatura;
+                    select * from kreatura;
                     select * from etapy_wyprawy;
                     select * from sektor;
                     select * from wyprawa;
                     select * from uczestnicy;
 SELECT wyprawa.nazwa,COUNT(uczestnicy.id_wyprawy) AS suma_uczestnikow ,GROUP_CONCAT(kreatura.nazwa) as uczestnicy FROM wyprawa JOIN uczestnicy ON  wyprawa.id_wyprawy=uczestnicy.id_wyprawy JOIN kreatura ON kreatura.idkreatury=uczestnicy.id_uczestnika GROUP BY wyprawa.nazwa
 3.
-SELECT wyprawa.nazwa, etapy_wyprawy.kolejnosc, sektor.nazwa, kreatura.nazwa FROM wyprawa JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor JOIN uczestnicy ON uczestnicy.id_uczestnika=wyprawa.kierownik JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
+SELECT wyprawa.nazwa, etapy_wyprawy.kolejnosc, sektor.nazwa, kreatura.nazwa 
+FROM wyprawa 
+JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy 
+JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor 
+JOIN uczestnicy ON uczestnicy.id_uczestnika=wyprawa.kierownik 
+JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika 
+ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
 ZAD 3
 1.
 SELECT sektor.nazwa,COUNT(idWyprawy) AS ilosc_odwiedzin FROM etapy_wyprawy
@@ -213,25 +219,24 @@ LEFT JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor
 GROUP BY sektor 
 ORDER BY sektor;
 2.
-
-
-
-
-
-
-
-
-
-
+SELECT kreatura.nazwa IF(count(w.id_wyprawy)>0,"bral udzial w wyprawie","nie bral udzialy w wyprawie") as Czy_bral_udzial FROM kreatura LEFT JOIN uczestnicy ON id_uczestnika=idKreatury GROUP BY kreatura.nazwa;
 ZAD 4
 1.
-SELECT wyprawa.nazwa, length(etapy_wyprawy.dziennik) AS suma_liczby_znakow FROM wyprawa 
-JOIN etapy_wyprawy ON wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy 
-JOIN sektor ON sektor.id_sektora=etapy_wyprawy.sektor 
-JOIN uczestnicy ON uczestnicy.id_uczestnika=wyprawa.kierownik 
-JOIN kreatura ON kreatura.idKreatury=uczestnicy.id_uczestnika 
-GROUP BY wyprawa.nazwa
-HAVING SUM(length(etapy_wyprawy.dziennik));
-
-
-
+SELECT w.nazwa,SUM(LENGTH(etap.dziennik)) as liczba_znakow FROM wyprawa as w JOIN etapy_wyprawy as etap ON
+w.id_wyprawy=etap.idWyprawy GROUP BY w.nazwa HAVING liczba_znakow<400;
+2.
+SELECT w.nazwa, ROUND(SUM(z.waga*z.ilosc)/COUNT(id_uczestnika),2) AS srednia_waga 
+FROM wyprawa as w 
+JOIN uczestnicy as u ON w.id_wyprawy=u.id_wyprawy 
+JOIN kreatura as k ON k.idKreatury=u.id_uczestnika 
+JOIN ekwipunek as e ON e.idKreatury=k.idKreatury 
+JOIN zasob as z ON z.idZasobu=e.idZasobu 
+GROUP BY w.nazwa;
+ZAD 5
+1.
+SELECT kreatura.nazwa, DATEDIFF(data_rozpoczecia, dataUr) AS wiek_w_dniach 
+FROM kreatura
+JOIN uczestnicy ON id_uczestnika=idKreatury
+JOIN wyprawa ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy
+JOIN etapy_wyprawy ON etapy_wyprawy.idWyprawy
+WHERE etapy_wyprawy.sektor=7;
