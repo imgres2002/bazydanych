@@ -28,7 +28,6 @@ CREATE TABLE izba(adres_budynku INT AUTO_INCREMENT PRIMARY KEY,
 nazwa_izby VARCHAR(40),
 metraz INT UNSIGNED,
 wlasciciel INT,
-wlasciciel INT,
 FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci));
 
 ALTER TABLE izba ADD kolor VARCHAR(40) DEFAULT 'czarny' AFTER metraz;
@@ -52,7 +51,10 @@ INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1993-10-10',31,'wik
 INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1994-10-10',31,'wiking_4');
 INSERT INTO postac(rodzaj ,data_ur ,wiek ,nazwa ) VALUES (1,'1995-10-10',31,'wiking_5');
 
-CREATE TABLE statek(nazwa_statku INT AUTO_INCREMENT PRIMARY KEY,rodzaj_statku ENUM('snek',' skeid','drakar'),data_wodowania DATE,max_ladownosc INT UNSIGNED);
+CREATE TABLE statek(nazwa_statku INT AUTO_INCREMENT PRIMARY KEY,
+rodzaj_statku ENUM('snek',' skeid','drakar'),
+data_wodowania DATE,
+max_ladownosc INT UNSIGNED);
 
 INSERT INTO statek(rodzaj_statku,data_wodowania,max_ladownosc) VALUES (1,'1991-10-10',100);
 INSERT INTO statek(rodzaj_statku,data_wodowania,max_ladownosc) VALUES (2,'1992-10-10',150);
@@ -240,3 +242,4 @@ JOIN uczestnicy ON id_uczestnika=idKreatury
 JOIN wyprawa ON wyprawa.id_wyprawy=uczestnicy.id_wyprawy
 JOIN etapy_wyprawy ON etapy_wyprawy.idWyprawy
 WHERE etapy_wyprawy.sektor=7;
+

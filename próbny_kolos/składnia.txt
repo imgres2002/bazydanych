@@ -1,0 +1,58 @@
+CREATE TABLE nazwa_tabeli
+(nazwa_kolumny VARCHAR(wielkość)|ENUM(wartość1, wartość2, ...)|INT(wielkość)|FLOAT(wielkość, ilość miejsc po przecinku)|DATE
+NULL/NOT NULL|PRIMARY KEY|DEFAULT standardowa wartość)
+
+ALTER TABLE nazwa_tabeli 
+ADD COLUMN nazwa_kolumny nowy_typ_danych [ NULL | NOT NULL ] [ PRIMARY KEY | UNIQUE ] [ IDENTITY ] [ DEFAULT default_expression ]
+DROP COLUMN nazwa_kolumny [, ...] ]
+ADD CONSTRAIN
+DROP CONSTRAINT 
+ALTER COLUMN nazwa_kolumny nowy_typ_danych [ NULL | NOT NULL ]
+ADD PRIMARY KEY
+MODIFY
+
+DROP nazwa_tabeli
+
+INSERT
+ALL
+INTO nazwa_tabeli (tabela1, tabela2 ...)
+VALUES (wartość1, wartość2, ...)
+SELECT * FROM DUAL
+
+INSERT INTO nazwa_tabeli (tabela1, tabela2 ...)
+SELECT nazwa_tabeli2 (tabela2_1, tabela2_2 ...)
+FROM nazwa_tabeli_z_której_pobieramy_wartości
+
+UPDATE nazwa_tabeli 
+SET nazwa_kolumny = wartość
+WHERE warunek
+
+DELETE FROM nazwa_tabeli
+WHERE
+ORDER BY
+LIMIT
+
+TRUNCATE TABLE //UWAGA USUWA CALA TABELE!
+
+SELECT
+JOIN ... ON
+FROM 
+WHERE
+HAVING
+GROUP BY nazwa_kolumny
+ORDER BY order_expression ASC/DESC
+UNION
+
+RENAME TABLE tabela TO tabela1
+
+DESC
+SHOW CREATE TABLE
+alter table
+select
+insert into
+delet
+truncate
+drop
+update
+create
+renammme

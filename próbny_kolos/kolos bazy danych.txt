@@ -1,0 +1,102 @@
+3a)
+CREAT TABLE Promotor (PESEL VARCHAR(11) PRIMARY KEY NOT NULL,
+Tytul ENUM('mgr', ''dr', 'prof') DEFAULT 'prof',
+imie VARCHAR(40),
+nazwisko VARCHAR(30) NOT NULL,
+zarobki FLOAT UNSIGNED DEFAULT('2000'), dataur DATE)
+b)
+CREAT TABLE Praca(promotor FOREIGN KEY REFERENCES ON Promotor.PESEL ??????
+4
+INSERT INTO Promotor (PESEL, imie, nazwisko, zarobki, dataUr)
+SELECT idKreatury, nazwa, rodzaj, waga, dataUr
+FROM kreatura
+WHERE idKreatury BETWEEN 5 AND 10
+5
+UPDATE Promotor SET zarobki=zarobki*2 WHERE tytul=3
+6
+ALTER TABLE Promotor ALTER COLUMN PESEL INT
+ALTER TABLE Promotor ADD COLUMN IdPracownika INT AUTO INCREMENT 
+7a)
+SELECT CONCAT(imie, " ", nazwisko)AS zawodnik,Dataur, Wzrost, IdKlubu
+FROM zawodnicy 
+WHERE Wzrost>180
+ORDER BY Dataur DESC
+b)
+SELECT nazwisko FROM zawodnicy OUTER JOIN udzial ON zawodnicy.Idzaw=udzial.Idzaw WHERE Idzaw is NULL???
+SELECT nazwisko FROM zawodnicy WHERE NOT EXISTS (select*from udzial where zawodnicy.Idzaw=udzial.Idzaw);
+c)
+SELECT Nazwa, Miasto, COUNT(Idzaw) AS liczba_Zaw
+FROM kluby JOIN zawodnicy ON kluby.IdKlubu=zawodnicy.IdKlubu
+GROUP BY kluby.IdKlubu
+d)
+SELECT imie, nazwisko
+FROM zawodnicy
+JOIN udzial ON zawodnicy.Idzaw=udzial.Idzaw 
+GROUP BY udzial.Idzaw
+HAVING COUNT(udzial.idzaw)
+ORDER BY COUNT(udzial.idzaw) DESC
+LIMIT 1
+E)
+SELECT imie, nazwisko, SUM(doMinuty-odMinuty) AS laczyny_czas_jaki_gral
+FROM zawodnicy
+JOIN kluby ON zawodnicy.IdKlubu=kluby.IdKlubu
+JOIN udzial ON zawodnicy.Idzaw=udzial.Idzaw
+WHERE Nazwa="tecza"
+GROUP BY zawodnicy.Idzaw
+F)
+SELECT imie, nazwisko, wzrost/100 FROM zawodnicy 
+JOIN udzial ON zawodnicy.Idzaw=udzial.Idzaw
+WHERE imie LIKE 'Ja%'
+GROUP BY imie
+HAVING COUNT(udzial.Idzaw)>2
+
+G)
+SELECT nazwa, SUM(goleGosc)
+FROM kluby
+JOIN mecze ON kluby.IdKlubu=mecze.Idgosc
+GROUP BY kluby.IdKlubu
+ORDER BY SUM(goleGosc) DESC
+limit 1
+8a)
+b)
+SELECT stadion, sum(goleGosp) AS suma_strzelonych_gosp, sum(goleGosc) AS suma_strzelonych_gosc
+FROM mecze
+GROUP BY stadion
+c)
+SELECT kluby.nazwa, sum(goleGosp) AS suma_strzelonych, sum(goleGosc) AS suma_straconych
+FROM kluby
+JOIN mecze ON kluby.idKlubu=mecze.idGosp
+GROUP BY kluby.nazwa
+UNION
+SELECT kluby.nazwa, sum(goleGosp) AS suma_straconych, sum(goleGosc) AS suma_strzelonych
+FROM kluby
+JOIN mecze ON kluby.idKlubu=mecze.idGosc
+GROUP BY kluby.nazwa
+d)
+SELECT idgosp, idgosc, CONCAT (golegosp, '-', golesgosc) AS wynik,SUM() AS czas_zawodnikow_na_meczu
+GROUP BY Idmeczu
+E)
+DECLARE x INT
+SET x=0
+SELECT nazwa, CONCAT('strzelone:', SUM(goleGosp), ' ', 'stracone:', SUM(goleGosc))AS wynik
+FROM mecze
+JOIN kluby ON kluby.idKlubu=mecze.idGosp
+GROUP BY nazwa
+UNION
+SELECT nazwa, CONCAT('strzelone:', SUM(goleGosc), ' ', 'stracone:', SUM(goleGosp))AS wynik,
+(select if(goleGosp>goleGosc, x=x+1,x=x)
+FROM mecze
+)AS punkty
+FROM mecze
+JOIN kluby ON kluby.idKlubu=mecze.idGosc
+GROUP BY nazwa???
+
+
+
+delet
+drop
+insert
+alter
+create
+update
+select

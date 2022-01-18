@@ -1,3 +1,2 @@
 https://drive.google.com/drive/folders/16mH5wGTFbZQ9CG5pn-LbFwMbriVPb_cn?fbclid=IwAR27YHtPY8GfZV3qinbr32AIjb6lzsl7mQUbBU2DzIslotkUBRnNxmQUPf0
-
-https://www.mechanikryki.pl/renata/pliki_pdf/SQL.pdf
+https://github.com/kropiak/zti_bazy/tree/master/lab_2

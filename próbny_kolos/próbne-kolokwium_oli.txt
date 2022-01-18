@@ -1,0 +1,153 @@
+create table Promotor (PESEL VARCHAR(11) PRIMARY KEY NOT NULL, Tytul ENUM  ('mgr', 'dr', 'prof.') DEFAULT('prof.'), imie VARCHAR(20) NOT NULL, nazwisko VARCHAR(30) NOT NULL, zarobki FLOAT UNSIGNED DEFAULT('2000'), dataur DATE);
+
+create table Praca (promotor VARCHAR(11),
+FOREIGN KEY (promotor) REFERENCES Promotor(PESEL),
+nr_indeksu VARCHAR(6),
+TytulPracy VARCHAR(100),
+ocena ENUM('dst', 'dst_plus', 'db', 'db_plus', 'bdb') DEFAULT(1),
+PRIMARY KEY(promotor, nr_indeksu));
+
+INSERT INTO pracownik VALUES ('5', 'Anna', 'Kowalska', '2000', '1998-12-21', 'sprzedawca');
+INSERT INTO Promotor(PESEL, Tytul, imie, nazwisko) SELECT '12345678912',
+'mgr', imie, nazwisko FROM pracownik WHERE id_pracownika=5;
+
+UPDATE Promotor SET zarobki=zarobki*2 WHERE Tytul='mgr';
+
+ALTER TABLE Promotor ADD COLUMN IdPracownika INT;
+
+ALTER TABLE Praca DROP FOREIGN KEY Praca_ibfk_1;
+
+ALTER TABLE Promotor DROP PRIMARY KEY;
+
+ALTER TABLE Promotor ADD IdPracownika INT(10) NOT NULL;
+
+UPDATE Promotor SET IdPracownika='1' WHERE imie='Anna';
+
+ALTER TABLE Promotor MODIFY IdPracownika INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY;
+
+DESC Promotor;
++--------------+--------------------------+------+-----+------------------+-------------------+
+| Field        | Type                     | Null | Key | Default          | Extra             |
++--------------+--------------------------+------+-----+------------------+-------------------+
+| PESEL        | varchar(11)              | NO   |     | NULL             |                   |
+| Tytul        | enum('mgr','dr','prof.') | YES  |     | _latin1\'prof.\' | DEFAULT_GENERATED |
+| imie         | varchar(20)              | NO   |     | NULL             |                   |
+| nazwisko     | varchar(30)              | NO   |     | NULL             |                   |
+| zarobki      | float unsigned           | YES  |     | _latin1\'2000\'  | DEFAULT_GENERATED |
+| dataur       | date                     | YES  |     | NULL             |                   |
+| IdPracownika | int                      | NO   | PRI | NULL             | auto_increment    |
++--------------+--------------------------+------+-----+------------------+-------------------+
+
+SELECT CONCAT (imie,' ', nazwisko) as zawodnik, Wzrost FROM zawodnicy 
+WHERE Wzrost>180ORDER BY Dataur DESC;
++------------------+--------+
+| zawodnik         | Wzrost |
++------------------+--------+
+| Jurek Dudek      |    197 |
+| Michal Bila      |    186 |
+| Przemek Kuc      |    187 |
+| Tomasz Waldoch   |    182 |
+| Jaroslaw Lato    |    195 |
+| Teofil Wagorz    |    181 |
+| Michal Bakiewicz |    197 |
+| Ariel Podolski   |    194 |
+| Jacek Placek     |    187 |
+| Grzegorz Wegrzyn |    183 |
++------------------+--------+
+
+SELECT zawodnicy.nazwisko FROM zawodnicy WHERE NOT EXISTS (select*from ud
+zial where zawodnicy.Idzaw=udzial.Idzaw);
++------------+
+| nazwisko   |
++------------+
+| Wlodarczyk |
+| Jurand     |
+| Weszo      |
++------------+
+
+select concat(zawodnicy.imie, ' ',zawodnicy. nazwisko) as zawodnik,count(udzial.Idzaw), udzial.Idzaw from zawodnicy join udzial on udzial.Idzaw=zawodnicy
+.Idzaw group by udzial.Idzaw LIMIT 1;
++----------------+---------------------+-------+
+| zawodnik       | count(udzial.Idzaw) | Idzaw |
++----------------+---------------------+-------+
+| Tomasz Waldoch |                   6 |     1 |
++----------------+---------------------+-------+
+
+SELECT *from kluby;
++---------+-------+---------+
+| IdKlubu | Nazwa | Miasto  |
++---------+-------+---------+
+|       1 | Tecza | Rybnik  |
+|       2 | OKS   | Olsztyn |
+|       3 | Juchy | Ketrzyn |
+|       4 | Wisla | Plock   |
+|       5 | Wisla | Krakow  |
++---------+-------+---------+
+
+select concat (zawodnicy.imie, ' ', zawodnicy.nazwisko) as zawodnik, udzial.doMinuty-udzial.odMinuty as 'czas na boisku' from zawodnicy join kluby on kluby.IdKlubu=zawodnicy.IdKlubu join udzial on  zawodnicy.Idzaw=udzial.Idzaw where
+kluby.nazwa='Tecza';
++------------------+----------------+
+| zawodnik         | czas na boisku |
++------------------+----------------+
+| Tomasz Waldoch   |             89 |
+| Tomasz Waldoch   |             75 |
+| Tomasz Waldoch   |             89 |
+| Tomasz Waldoch   |             75 |
+| Tomasz Waldoch   |             89 |
+| Tomasz Waldoch   |             45 |
+| Michal Zewlakow  |             35 |
+| Michal Zewlakow  |             89 |
+| Michal Zewlakow  |             35 |
+| Michal Zewlakow  |              8 |
+| Michal Zewlakow  |             35 |
+| Michal Zewlakow  |             89 |
+| Jacek Machon     |             89 |
+| Jacek Machon     |             89 |
+| Jacek Machon     |             89 |
+| Jacek Machon     |             89 |
+| Jacek Machon     |             89 |
+| Jacek Machon     |             89 |
+| Michal Bakiewicz |             89 |
+| Michal Bakiewicz |             89 |
+| Michal Bakiewicz |             89 |
+| Michal Bakiewicz |             89 |
+| Michal Bakiewicz |             22 |
+| Michal Bakiewicz |             89 |
+| Tomasz Hajto     |             89 |
+| Tomasz Hajto     |             89 |
+| Tomasz Hajto     |             89 |
+| Tomasz Hajto     |             89 |
+| Tomasz Hajto     |             89 |
+| Tomasz Hajto     |             89 |
+| Pawel Kryszal    |             89 |
+| Pawel Kryszal    |             55 |
+| Pawel Kryszal    |             89 |
+| Pawel Kryszal    |             55 |
+| Pawel Kryszal    |             89 |
+| Grzegorz Wegrzyn |             89 |
+| Grzegorz Wegrzyn |             22 |
+| Grzegorz Wegrzyn |             89 |
+| Grzegorz Wegrzyn |             22 |
+| Grzegorz Wegrzyn |             89 |
+| Piotr Wlodarz    |             55 |
+| Jaroslaw Lato    |             89 |
+| Jaroslaw Lato    |             89 |
+| Jaroslaw Lato    |             86 |
++------------------+----------------+
+
+
+select concat (zawodnicy.imie, ' ', zawodnicy.nazwisko) as zawodnik,SUM(udzial.doMinuty-udzial.odMinuty) as 'czas na boisku' from zawodnicy join kluby on
+ kluby.IdKlubu=zawodnicy.IdKlubu join udzial on  zawodnicy.Idzaw=udzial.Idzaw where kluby.nazwa='Tecza' group by zawodnik;
++------------------+----------------+
+| zawodnik         | czas na boisku |
++------------------+----------------+
+| Tomasz Waldoch   |            462 |
+| Michal Zewlakow  |            291 |
+| Jacek Machon     |            534 |
+| Michal Bakiewicz |            467 |
+| Tomasz Hajto     |            534 |
+| Pawel Kryszal    |            377 |
+| Grzegorz Wegrzyn |            311 |
+| Piotr Wlodarz    |             55 |
+| Jaroslaw Lato    |            264 |
++------------------+----------------+
